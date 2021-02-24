@@ -4,7 +4,7 @@ import cs from 'classnames';
 import CSS from 'csstype';
 
 import { Lottie, ReactLottieConfig } from './reactComponentLib';
-import animationData from './lotties/11643-tesla-cybertruck.json'
+import animationData from './lotties/11643-tesla-cybertruck.json';
 
 export const LottieHoverable = () => {
   const [direction, setDirection] = useState<AnimationDirection>(1);
@@ -20,7 +20,7 @@ export const LottieHoverable = () => {
     loop: true,
     renderer: 'canvas',
     autoplay: false,
-    animationData: animationData
+    animationData: animationData,
   };
   const hoverableContainerStyle: CSS.Properties = {
     display: 'flex',
@@ -33,25 +33,22 @@ export const LottieHoverable = () => {
   return (
     <>
       <h1>Mouse events example:</h1>
-      <div
-        style={hoverableContainerStyle}
-        onMouseEnter={handleLottieMouseEnter}
-        onMouseLeave={handleLottieMouseLeave}
-      >
+      <div style={hoverableContainerStyle} onMouseEnter={handleLottieMouseEnter} onMouseLeave={handleLottieMouseLeave}>
         <Lottie
           playingState={'playing'}
           speed={speed}
           direction={direction}
-          width='350px'
+          width="350px"
           className={cs('lottie-container', 'hoverable')}
-          height='350px'
-          config={reactLottieConfig} />
+          height="350px"
+          config={reactLottieConfig}
+        />
         <p>
           <b>mouseenter</b>: slowdown
-          <br/>
+          <br />
           <b>mouseleave</b>: reverse & reset speed
-          </p>
+        </p>
       </div>
     </>
-  )
-}
+  );
+};

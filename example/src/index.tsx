@@ -7,12 +7,12 @@ import { LottieRemote } from './LottieRemote';
 import './index.css';
 
 const App = () => (
-    <>
-        <LottieBasic />
-        <LottieHoverable />
-        <LottieQueue />
-        <LottieRemote />
-    </>
-)
+  <>
+    <LottieBasic />
+    <LottieHoverable />
+    <LottieQueue />
+    <LottieRemote />
+  </>
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));

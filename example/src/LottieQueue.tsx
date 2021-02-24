@@ -10,13 +10,7 @@ import { ReactLottieState } from './reactComponentLib/components/Lottie/interfac
 
 export class LottieQueue extends Component<any, ReactLottieState> {
   private animationsQueue!: any[];
-  private originalQueue = [
-    spinnerLottieData,
-    vanLottieData,
-    loadingLottieData,
-    vanLottieData,
-    lightBulbLottieData,
-  ];
+  private originalQueue = [spinnerLottieData, vanLottieData, loadingLottieData, vanLottieData, lightBulbLottieData];
   constructor(props: any) {
     super(props);
     this.animationsQueue = [...this.originalQueue];
@@ -34,17 +28,17 @@ export class LottieQueue extends Component<any, ReactLottieState> {
   restart = () => {
     this.setState({ playingState: 'stopped' });
     this.setState({ playingState: 'playing' });
-  }
+  };
 
   setPlaying = () => {
-    this.setState({ playingState: 'playing' })
-  }
+    this.setState({ playingState: 'playing' });
+  };
   setPaused = () => {
-    this.setState({ playingState: 'paused' })
-  }
+    this.setState({ playingState: 'paused' });
+  };
   setStopped = () => {
-    this.setState({ playingState: 'stopped' })
-  }
+    this.setState({ playingState: 'stopped' });
+  };
 
   nextAnimation = () => {
     const next = this.animationsQueue.shift();
@@ -54,35 +48,35 @@ export class LottieQueue extends Component<any, ReactLottieState> {
       return;
     }
     this.setState({
-      config: { animationData: next }
+      config: { animationData: next },
     });
-  }
+  };
 
   getSpeedIcon = (speed) => {
     if (speed === 0) {
-      return "🛌";
+      return '🛌';
     } else if (speed < 1) {
-      return "🐌";
+      return '🐌';
     } else if (speed < 2) {
-      return "🚶";
+      return '🚶';
     } else if (speed < 3) {
-      return "🏃‍♀️";
+      return '🏃‍♀️';
     } else if (speed < 4) {
-      return "🚴";
+      return '🚴';
     } else if (speed < 5) {
-      return "🛵";
+      return '🛵';
     } else if (speed < 6) {
-      return "🏍";
+      return '🏍';
     } else if (speed < 7) {
-      return "🚙";
+      return '🚙';
     } else if (speed < 8) {
-      return "🚓";
+      return '🚓';
     } else if (speed < 9) {
-      return "✈️";
+      return '✈️';
     } else if (speed <= 10) {
-      return "🚀";
+      return '🚀';
     }
-  }
+  };
 
   render() {
     const speedIcon: CSS.Properties = {
@@ -90,12 +84,12 @@ export class LottieQueue extends Component<any, ReactLottieState> {
       height: '20px',
       display: 'inline-flex',
       lineHeight: '40px',
-    }
+    };
 
     const lottieStyles: CSS.Properties = {
       boxShadow: '0 0 14px 1px #444',
-      backgroundColor: `rgba(255,255,255,${1 - this.animationsQueue.length/2})`
-    }
+      backgroundColor: `rgba(255,255,255,${1 - this.animationsQueue.length / 2})`,
+    };
 
     const { playingState, direction, config, speed, segments } = this.state;
 
@@ -105,7 +99,7 @@ export class LottieQueue extends Component<any, ReactLottieState> {
         <Lottie
           config={config}
           height="350px"
-          width='350px'
+          width="350px"
           style={lottieStyles}
           playingState={playingState}
           speed={speed}
@@ -113,8 +107,14 @@ export class LottieQueue extends Component<any, ReactLottieState> {
           className="lottie-container"
           direction={direction}
           lottieEventListeners={[
-            { callback: () => console.log('\'DOMLoaded\' event callback triggered '), name: 'DOMLoaded' },
-            { callback: () => { console.log('\'complete\' event callback triggered '); this.nextAnimation() }, name: 'complete' },
+            { callback: () => console.log("'DOMLoaded' event callback triggered "), name: 'DOMLoaded' },
+            {
+              callback: () => {
+                console.log("'complete' event callback triggered ");
+                this.nextAnimation();
+              },
+              name: 'complete',
+            },
           ]}
         />
         <p style={{ textAlign: 'center' }}>
@@ -126,8 +126,12 @@ export class LottieQueue extends Component<any, ReactLottieState> {
         </p>
         <p>
           <input
-            type="range" value={speed} min="0" max="10" step="0.5"
-            onChange={e => this.setState({ speed: parseFloat(e.currentTarget.value) || 0 })}
+            type="range"
+            value={speed}
+            min="0"
+            max="10"
+            step="0.5"
+            onChange={(e) => this.setState({ speed: parseFloat(e.currentTarget.value) || 0 })}
           />
         </p>
         <p>
@@ -136,9 +140,8 @@ export class LottieQueue extends Component<any, ReactLottieState> {
           <input type="button" value="Stop" onClick={this.setStopped} />
           <input type="button" value="Next" onClick={this.nextAnimation} />
         </p>
-        {segments && <p >Segment range: {JSON.stringify(segments)}</p>}
+        {segments && <p>Segment range: {JSON.stringify(segments)}</p>}
       </>
     );
   }
 }
-

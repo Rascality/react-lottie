@@ -1,6 +1,14 @@
 import React from 'react';
 import lottiePlayer, { AnimationItem, AnimationConfig } from 'lottie-web';
-import { ReactLottieOwnProps, ReactLottieEvent, ReactLottieConfig, ReactLottiePlayingState, ReactLottieState, ReactLottieConfigWithData, ReactLottieConfigWithPath  } from './interface'
+import {
+  ReactLottieOwnProps,
+  ReactLottieEvent,
+  ReactLottieConfig,
+  ReactLottiePlayingState,
+  ReactLottieState,
+  ReactLottieConfigWithData,
+  ReactLottieConfigWithPath,
+} from './interface';
 
 export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottieState> {
   private config: ReactLottieConfig;
@@ -9,8 +17,8 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
   private defaultLottieConfig: Partial<AnimationConfig> = {
     renderer: 'svg',
     loop: false,
-    autoplay: true
-  }
+    autoplay: true,
+  };
 
   public static defaultProps = {
     lottieEventListeners: [],
@@ -35,9 +43,13 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
     this.configureAnimationItem();
   }
 
-  UNSAFE_componentWillUpdate(nextProps: ReactLottieOwnProps) {//TODO: to be refactored
-    const animationDataChanged = ((this.config as ReactLottieConfigWithData).animationData !== (nextProps.config as ReactLottieConfigWithData).animationData);
-    const animationPathChanged = ((this.config as ReactLottieConfigWithPath).path !== (nextProps.config as ReactLottieConfigWithPath).path);
+  UNSAFE_componentWillUpdate(nextProps: ReactLottieOwnProps) {
+    //TODO: to be refactored
+    const animationDataChanged =
+      (this.config as ReactLottieConfigWithData).animationData !==
+      (nextProps.config as ReactLottieConfigWithData).animationData;
+    const animationPathChanged =
+      (this.config as ReactLottieConfigWithPath).path !== (nextProps.config as ReactLottieConfigWithPath).path;
     if (animationDataChanged || animationPathChanged) {
       this.removeEventListeners(this.props.lottieEventListeners);
       this.animationItem.destroy();
@@ -60,11 +72,7 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
   }
 
   private configureAnimationItem() {
-    const {
-      playingState,
-      speed,
-      direction,
-    } = this.props;
+    const { playingState, speed, direction } = this.props;
     this.setAnimationPlayingState(playingState);
     this.animationItem.setSpeed(speed);
     this.animationItem.setDirection(direction);
@@ -88,7 +96,7 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
         throw new Error('Playing state not specified.');
       }
     }
-  }
+  };
 
   private triggerPlayBasedOnSegments() {
     const { segments } = this.props;
@@ -113,15 +121,10 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
 
   private setContainerRef = (element: HTMLElement) => {
     this.containerRef = element;
-  }
+  };
 
   render() {
-    const {
-      width,
-      height,
-      style,
-      className,
-    } = this.props;
+    const { width, height, style, className } = this.props;
 
     const lottieStyle = {
       width: width,
@@ -129,12 +132,6 @@ export class Lottie extends React.PureComponent<ReactLottieOwnProps, ReactLottie
       ...style,
     };
 
-    return (
-      <div
-        className={className}
-        ref={this.setContainerRef}
-        style={lottieStyle}
-      />
-    );
+    return <div className={className} ref={this.setContainerRef} style={lottieStyle} />;
   }
 }
